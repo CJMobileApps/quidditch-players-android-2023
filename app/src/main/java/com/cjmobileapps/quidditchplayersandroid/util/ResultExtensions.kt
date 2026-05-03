@@ -49,7 +49,7 @@ fun <T : Any> ResponseApiWrapper<T>.responseWrapper(): ResponseWrapper<T> {
     val body = response.body()
 
     if (response.isSuccessful && body != null) {
-        return body
+        return body.copy(statusCode = response.code())
     } else {
         return if (body?.statusCode != null && body.statusCode >= 400 && body.statusCode <= 499) {
             body
@@ -72,7 +72,7 @@ fun <T : Any> Response<ResponseWrapper<T>>.responseWrapper(): ResponseWrapper<T>
     val body = body()
 
     if (isSuccessful && body != null) {
-        return body
+        return body.copy(statusCode = code())
     } else {
         return if (body?.statusCode != null && body.statusCode >= 400 && body.statusCode <= 499) {
             body
