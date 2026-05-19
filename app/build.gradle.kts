@@ -43,12 +43,12 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
 android {
     namespace = "com.cjmobileapps.quidditchplayersandroid"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.cjmobileapps.quidditchplayersandroid"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
