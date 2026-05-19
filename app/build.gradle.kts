@@ -159,6 +159,7 @@ dependencies {
     implementation(libs.test.rules)
     testImplementation(libs.junit4)
     testRuntimeOnly(libs.vintage.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     // Timber logger
     implementation(libs.timber)
