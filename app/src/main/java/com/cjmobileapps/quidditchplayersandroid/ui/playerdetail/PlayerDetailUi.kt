@@ -156,8 +156,7 @@ fun PlayerDetail(
                         .border(
                             BorderStroke(1.dp, Color.Black),
                             RoundedCornerShape(4.dp),
-                        )
-                        .clip(RoundedCornerShape(4.dp)),
+                        ).clip(RoundedCornerShape(4.dp)),
                 imageUrl = player.imageUrl,
                 contentDescription = "${player.getFullName()} ${stringResource(R.string.player_image)}",
                 contentScale = ContentScale.FillBounds,

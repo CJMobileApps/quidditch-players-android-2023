@@ -27,7 +27,8 @@ class QuidditchPlayersUseCase(
                 )
             }
         } catch (e: Exception) {
-            Timber.tag(tag)
+            Timber
+                .tag(tag)
                 .e("quidditchPlayersRepository.getAllHousesFlow() error occurred: $e \\n ${e.message}")
             onHousesResponse(
                 ResponseWrapperUtil.createResponseWrapperError(
@@ -40,14 +41,16 @@ class QuidditchPlayersUseCase(
     suspend fun fetchHousesApi(): ResponseWrapper<Boolean> {
         var responseWrapper: ResponseWrapper<Boolean> = ResponseWrapper()
 
-        quidditchPlayersRepository.getAllHouses()
+        quidditchPlayersRepository
+            .getAllHouses()
             .onSuccess { houses ->
                 responseWrapper =
                     try {
                         quidditchPlayersRepository.createAllHousesToDB(houses)
                         ResponseWrapperUtil.createResponseWrapperSuccess(true)
                     } catch (e: Exception) {
-                        Timber.tag(tag)
+                        Timber
+                            .tag(tag)
                             .e("quidditchPlayersRepository.getAllHouses() error occurred: $e \\n ${e.message}")
                         ResponseWrapperUtil.createResponseWrapperError(
                             Error(
@@ -56,8 +59,7 @@ class QuidditchPlayersUseCase(
                             ),
                         )
                     }
-            }
-            .onError { statusCode, error ->
+            }.onError { statusCode, error ->
                 responseWrapper =
                     ResponseWrapperUtil.createResponseWrapperError(
                         error = Error(isError = true, message = error.message),
@@ -85,7 +87,8 @@ class QuidditchPlayersUseCase(
                                 )
                                 ResponseWrapperUtil.createResponseWrapperSuccess(true)
                             } catch (e: Exception) {
-                                Timber.tag(tag)
+                                Timber
+                                    .tag(tag)
                                     .e("quidditchPlayersRepository.createPlayersByHouseToDB() error occurred: $e \\n ${e.message}")
                                 ResponseWrapperUtil.createResponseWrapperError(
                                     Error(
@@ -94,16 +97,14 @@ class QuidditchPlayersUseCase(
                                     ),
                                 )
                             }
-                    }
-                    .onError { statusCode, error ->
+                    }.onError { statusCode, error ->
                         responseWrapper =
                             ResponseWrapperUtil.createResponseWrapperError(
                                 error = Error(isError = true, message = error.message),
                                 statusCode = statusCode,
                             )
                     }
-            }
-            .onError { statusCode, error ->
+            }.onError { statusCode, error ->
                 responseWrapper =
                     ResponseWrapperUtil.createResponseWrapperError(
                         error = Error(isError = true, message = error.message),
@@ -122,7 +123,8 @@ class QuidditchPlayersUseCase(
                 )
             }
         } catch (e: Exception) {
-            Timber.tag(tag)
+            Timber
+                .tag(tag)
                 .e("quidditchPlayersRepository.getAllPlayersFlow() error occurred: $e \\n ${e.message}")
             onPlayersResponse(
                 ResponseWrapperUtil.createResponseWrapperError(

@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.junit5)
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.compose.compiler)
-    id("jacoco")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.jacoco)
+    alias(libs.plugins.hiltAndroid)
 }
 
 jacoco {
@@ -14,16 +13,16 @@ jacoco {
 }
 
 tasks.register<JacocoReport>("jacocoTestReport") {
-    dependsOn("testDevDebugUnitTest", "testDevReleaseUnitTest", "createDevDebugCoverageReport")
+    dependsOn("testDevDebugUnitTest", "createDevDebugCoverageReport")
 
     reports {
         xml.required = true
         html.required = true
     }
 
-    val fileFilter = listOf("**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*")
+    val fileFilter = listOf("**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*", "**/hilt/**")
     val debugTree =
-        fileTree(baseDir = "$buildDir/intermediates/classes/debug") {
+        fileTree(layout.buildDirectory.dir("intermediates/built_in_kotlinc/devDebug/compileDevDebugKotlin/classes")) {
             exclude(fileFilter)
         }
     val mainSrc = "${project.projectDir}/src/main/java"
@@ -33,11 +32,10 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
     // I don't think this works
     executionData.setFrom(
-        fileTree(baseDir = "$buildDir") {
+        fileTree(layout.buildDirectory) {
             include(
-                "jacoco/testDevReleaseUnitTest.exec",
-                "outputs/code_coverage/*coverage.ec",
-                "outputs/unit_test_code_coverage/*testDevDebugUnitTest.exec",
+                "outputs/code_coverage/devDebugAndroidTest/connected/**/*.ec",
+                "outputs/unit_test_code_coverage/devDebugUnitTest/testDevDebugUnitTest.exec",
             )
         },
     )
@@ -45,12 +43,12 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
 android {
     namespace = "com.cjmobileapps.quidditchplayersandroid"
-    compileSdk = 34
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.cjmobileapps.quidditchplayersandroid"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
 
@@ -97,9 +95,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -108,6 +103,12 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 
@@ -123,6 +124,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.material.icons.core)
     implementation(libs.navigation.compose)
     implementation(libs.coil.compose)
 
@@ -157,6 +159,7 @@ dependencies {
     implementation(libs.test.rules)
     testImplementation(libs.junit4)
     testRuntimeOnly(libs.vintage.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     // Timber logger
     implementation(libs.timber)

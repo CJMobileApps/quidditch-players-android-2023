@@ -31,14 +31,16 @@ class PlayersListViewModelImpl
         savedStateHandle: SavedStateHandle,
         private val timeUtil: TimeUtil,
         private val quidditchPlayersUseCase: QuidditchPlayersUseCase,
-    ) : ViewModel(), PlayersListViewModel {
+    ) : ViewModel(),
+        PlayersListViewModel {
         private val houseName: String = checkNotNull(savedStateHandle["houseName"])
 
         private val compositeJob = Job()
 
         private val exceptionHandler =
             CoroutineExceptionHandler { _, throwable ->
-                Timber.tag(tag)
+                Timber
+                    .tag(tag)
                     .e("coroutineExceptionHandler() error occurred: $throwable \n ${throwable.message}")
                 snackbarState.value = PlayersListSnackbarState.ShowGenericError()
             }
@@ -81,8 +83,7 @@ class PlayersListViewModelImpl
                             playersListState.value =
                                 PlayersListState.PlayerListLoadedState(players.toPlayersState())
                             getStatuesForPlayer()
-                        }
-                        .onError { _, _ ->
+                        }.onError { _, _ ->
                             playersListState.value = PlayersListState.PlayerListLoadedState()
                             snackbarState.value = PlayersListSnackbarState.UnableToGetPlayersListError()
                         }
@@ -104,21 +105,21 @@ class PlayersListViewModelImpl
 
         @VisibleForTesting
         override suspend fun fetchStatusByHouseName(players: List<PlayerState>) {
-            quidditchPlayersUseCase.fetchStatusByHouseName(houseName)
+            quidditchPlayersUseCase
+                .fetchStatusByHouseName(houseName)
                 .onSuccess { status ->
                     players
                         .find { it.id == status.playerId }
-                        ?.status?.value = status.status
-                }
-                .onError { _, error ->
-                    Timber.tag(tag)
+                        ?.status
+                        ?.value = status.status
+                }.onError { _, error ->
+                    Timber
+                        .tag(tag)
                         .e("quidditchPlayersUseCase.fetchStatusByHouseName(houseName) error occurred: $error \\n ${error.message}")
                 }
         }
 
-        override fun getTopBarTitle(): String {
-            return houseName
-        }
+        override fun getTopBarTitle(): String = houseName
 
         override fun resetSnackbarState() {
             snackbarState.value = PlayersListSnackbarState.Idle
@@ -171,7 +172,9 @@ class PlayersListViewModelImpl
         sealed class PlayersListNavRouteUi {
             data object Idle : PlayersListNavRouteUi()
 
-            data class GoToPlayerDetailUi(val playerId: String) : PlayersListNavRouteUi() {
+            data class GoToPlayerDetailUi(
+                val playerId: String,
+            ) : PlayersListNavRouteUi() {
                 fun getNavRouteWithArguments(): String = NavItem.PlayerDetail.getNavRouteWithArguments(playerId)
             }
         }

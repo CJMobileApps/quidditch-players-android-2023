@@ -157,7 +157,8 @@ class QuidditchPlayersUseCaseTest : BaseTest() {
     fun `fetchPlayersAndPositionsApis() with players error response error flow`() =
         runTest {
             // when
-            Mockito.`when`(mockQuidditchPlayersRepository.fetchPlayersAndPositions(HouseName.RAVENCLAW.name))
+            Mockito
+                .`when`(mockQuidditchPlayersRepository.fetchPlayersAndPositions(HouseName.RAVENCLAW.name))
                 .thenReturn(MockData.mockRavenclawPlayersErrorAndPositionsResponseWrappers)
 
             // then
@@ -176,7 +177,8 @@ class QuidditchPlayersUseCaseTest : BaseTest() {
     fun `fetchPlayersAndPositionsApis() with positions error response error flow`() =
         runTest {
             // when
-            Mockito.`when`(mockQuidditchPlayersRepository.fetchPlayersAndPositions(HouseName.RAVENCLAW.name))
+            Mockito
+                .`when`(mockQuidditchPlayersRepository.fetchPlayersAndPositions(HouseName.RAVENCLAW.name))
                 .thenReturn(MockData.mockRavenclawPlayersAndPositionsErrorResponseWrappers)
 
             // then
@@ -281,7 +283,12 @@ class QuidditchPlayersUseCaseTest : BaseTest() {
     fun `fetchStatusByPlayerId() happy success flow`() =
         runTest {
             // given
-            val playerId = MockData.ravenclawTeam().first().id.toString()
+            val playerId =
+                MockData
+                    .ravenclawTeam()
+                    .first()
+                    .id
+                    .toString()
 
             // when
             Mockito.`when`(mockQuidditchPlayersRepository.fetchStatusByPlayerId(playerId)).thenReturn(MockData.mockStatusResponseWrapper)

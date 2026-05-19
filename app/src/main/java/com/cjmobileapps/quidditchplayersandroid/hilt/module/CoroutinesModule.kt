@@ -15,9 +15,7 @@ import javax.inject.Singleton
 class CoroutinesModule {
     @Singleton
     @Provides
-    fun coroutinesDispatchers(): CoroutineDispatchers {
-        return CoroutineDispatchersImpl
-    }
+    fun coroutinesDispatchers(): CoroutineDispatchers = CoroutineDispatchersImpl
 
     @Singleton
     @Provides

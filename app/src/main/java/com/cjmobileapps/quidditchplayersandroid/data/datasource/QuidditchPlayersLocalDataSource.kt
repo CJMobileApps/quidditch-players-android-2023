@@ -11,11 +11,10 @@ class QuidditchPlayersLocalDataSource(
     private val quidditchPlayersDao: QuidditchPlayersDao,
     private val coroutineDispatchers: CoroutineDispatchers,
 ) {
-    suspend fun getAllHousesFlow(): Flow<List<House>> {
-        return withContext(coroutineDispatchers.io) {
+    suspend fun getAllHousesFlow(): Flow<List<House>> =
+        withContext(coroutineDispatchers.io) {
             quidditchPlayersDao.getAllHouses()
         }
-    }
 
     suspend fun createAllHouses(houses: List<House>) {
         withContext(coroutineDispatchers.io) {
@@ -24,11 +23,10 @@ class QuidditchPlayersLocalDataSource(
         }
     }
 
-    suspend fun getAllPlayersFlow(): Flow<List<PlayerEntity>> {
-        return withContext(coroutineDispatchers.io) {
+    suspend fun getAllPlayersFlow(): Flow<List<PlayerEntity>> =
+        withContext(coroutineDispatchers.io) {
             quidditchPlayersDao.getAllPlayers()
         }
-    }
 
     suspend fun createPlayersByHouseToDB(players: List<PlayerEntity>) {
         withContext(coroutineDispatchers.io) {

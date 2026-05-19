@@ -160,9 +160,7 @@ jobs:
       - codecov/upload:
           file: report.xml
       - codecov/upload:
-          file: jacocoTestReportDevDebug.xml
-      - codecov/upload:
-          file: jacocoTestReportDevRelease.xml
+          file: jacocoTestReport.xml
 workflows:
   test-and-build:
     jobs:

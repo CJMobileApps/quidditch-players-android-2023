@@ -26,15 +26,11 @@ class NetworkModule {
     @Provides
     fun httpCacheDirectory(
         @ApplicationContext context: Context,
-    ): File {
-        return File(context.cacheDir, HTTP_CACHE_DIR)
-    }
+    ): File = File(context.cacheDir, HTTP_CACHE_DIR)
 
     @Singleton
     @Provides
-    fun cache(httpCacheDirectory: File): Cache {
-        return Cache(httpCacheDirectory, HTTP_CACHE_SIZE)
-    }
+    fun cache(httpCacheDirectory: File): Cache = Cache(httpCacheDirectory, HTTP_CACHE_SIZE)
 
     @Singleton
     @Provides
@@ -53,27 +49,25 @@ class NetworkModule {
     fun okHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
         cache: Cache,
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
+    ): OkHttpClient =
+        OkHttpClient
+            .Builder()
             .cache(cache)
             .addInterceptor(loggingInterceptor)
             .build()
-    }
 
     @Singleton
     @Provides
-    fun retrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
+    fun retrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit
+            .Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
-    }
 
     @Singleton
     @Provides
-    fun quidditchPlayersApi(retrofit: Retrofit): QuidditchPlayersApi {
-        return retrofit.create(QuidditchPlayersApi::class.java)
-    }
+    fun quidditchPlayersApi(retrofit: Retrofit): QuidditchPlayersApi = retrofit.create(QuidditchPlayersApi::class.java)
 }
