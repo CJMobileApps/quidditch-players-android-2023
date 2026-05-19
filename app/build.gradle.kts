@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.junit5)
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
@@ -23,7 +22,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
     val fileFilter = listOf("**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*")
     val debugTree =
-        fileTree(baseDir = "$buildDir/intermediates/classes/debug") {
+        fileTree(layout.buildDirectory.dir("intermediates/classes/debug")) {
             exclude(fileFilter)
         }
     val mainSrc = "${project.projectDir}/src/main/java"
@@ -33,7 +32,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
     // I don't think this works
     executionData.setFrom(
-        fileTree(baseDir = "$buildDir") {
+        fileTree(layout.buildDirectory) {
             include(
                 "jacoco/testDevReleaseUnitTest.exec",
                 "outputs/code_coverage/*coverage.ec",
@@ -97,9 +96,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
         buildConfig = true
@@ -108,6 +104,12 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 

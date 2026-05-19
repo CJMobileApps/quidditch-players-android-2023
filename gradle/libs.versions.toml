@@ -1,9 +1,9 @@
 [versions]
-agp = "8.2.2"
-kotlin = "2.0.0"
-hilt = "2.49"
+agp = "9.2.1"
+kotlin = "2.1.21"
+hilt = "2.59.2"
 junit5 = "1.10.0.0"
-ksp = "2.0.0-1.0.22"
+ksp = "2.1.21-2.0.1"
 ktlint = "12.1.0"
 jacoco = "0.8.9"
 activity-compose = "1.8.2"
