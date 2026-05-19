@@ -44,12 +44,12 @@ tasks.register<JacocoReport>("jacocoTestReport") {
 
 android {
     namespace = "com.cjmobileapps.quidditchplayersandroid"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.cjmobileapps.quidditchplayersandroid"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -125,6 +125,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.material.icons.core)
     implementation(libs.navigation.compose)
     implementation(libs.coil.compose)
 
