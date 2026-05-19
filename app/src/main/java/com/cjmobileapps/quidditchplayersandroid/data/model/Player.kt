@@ -40,13 +40,11 @@ data class PlayerState(
     val house: HouseName,
     val status: MutableState<String> = mutableStateOf(""),
 ) {
-    fun getFullName(): String {
-        return "$firstName $lastName"
-    }
+    fun getFullName(): String = "$firstName $lastName"
 }
 
-fun PlayerEntity.toPlayerState(): PlayerState {
-    return PlayerState(
+fun PlayerEntity.toPlayerState(): PlayerState =
+    PlayerState(
         id = this.id,
         firstName = this.firstName,
         lastName = this.lastName,
@@ -56,18 +54,13 @@ fun PlayerEntity.toPlayerState(): PlayerState {
         imageUrl = this.imageUrl,
         house = this.house,
     )
-}
 
-fun List<PlayerEntity>.toPlayersState(): List<PlayerState> {
-    return this.map { it.toPlayerState() }
-}
+fun List<PlayerEntity>.toPlayersState(): List<PlayerState> = this.map { it.toPlayerState() }
 
-fun List<Player>.toPlayersEntities(positions: Map<Int, Position>): List<PlayerEntity> {
-    return this.map { it.toPlayerEntity(positions) }
-}
+fun List<Player>.toPlayersEntities(positions: Map<Int, Position>): List<PlayerEntity> = this.map { it.toPlayerEntity(positions) }
 
-fun Player.toPlayerEntity(positions: Map<Int, Position>): PlayerEntity {
-    return PlayerEntity(
+fun Player.toPlayerEntity(positions: Map<Int, Position>): PlayerEntity =
+    PlayerEntity(
         id = id,
         firstName = firstName,
         lastName = lastName,
@@ -77,4 +70,3 @@ fun Player.toPlayerEntity(positions: Map<Int, Position>): PlayerEntity {
         imageUrl = imageUrl,
         house = house,
     )
-}

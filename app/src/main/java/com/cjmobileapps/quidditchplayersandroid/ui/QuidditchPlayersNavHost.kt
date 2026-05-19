@@ -78,9 +78,7 @@ sealed class NavItem(
                 navArgument("houseName") { type = NavType.StringType },
             ),
     ) {
-        fun getNavRouteWithArguments(houseName: String): String {
-            return "nav_players_list/$houseName"
-        }
+        fun getNavRouteWithArguments(houseName: String): String = "nav_players_list/$houseName"
     }
 
     data object PlayerDetail : NavItem(
@@ -90,8 +88,6 @@ sealed class NavItem(
                 navArgument("playerId") { type = NavType.StringType },
             ),
     ) {
-        fun getNavRouteWithArguments(playerId: String): String {
-            return "nav_player_detail/$playerId"
-        }
+        fun getNavRouteWithArguments(playerId: String): String = "nav_player_detail/$playerId"
     }
 }

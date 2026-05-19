@@ -168,7 +168,12 @@ class QuidditchPlayersRepositoryImplTest : BaseTest() {
     fun `fetchStatusByPlayerId() happy success flow`() =
         runTest {
             // given
-            val playerId = MockData.ravenclawTeam().first().id.toString()
+            val playerId =
+                MockData
+                    .ravenclawTeam()
+                    .first()
+                    .id
+                    .toString()
 
             // when
             Mockito.`when`(mockQuidditchPlayersApiDataSource.fetchStatusByPlayerId(playerId)).thenReturn(MockData.mockStatusResponseWrapper)

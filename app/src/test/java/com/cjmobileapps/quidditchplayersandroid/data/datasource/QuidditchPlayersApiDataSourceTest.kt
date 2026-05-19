@@ -46,7 +46,8 @@ class QuidditchPlayersApiDataSourceTest : BaseTest() {
     fun `get players by house success flow`() =
         runTest {
             // when
-            Mockito.`when`(mockQuidditchPlayersApi.getPlayersByHouse(houseName = HouseName.RAVENCLAW.name))
+            Mockito
+                .`when`(mockQuidditchPlayersApi.getPlayersByHouse(houseName = HouseName.RAVENCLAW.name))
                 .thenReturn(
                     MockData.mockRavenclawPlayersDeferredResponseSuccess,
                 )
@@ -63,10 +64,11 @@ class QuidditchPlayersApiDataSourceTest : BaseTest() {
         }
 
     @Test
-    fun`fetch players and positions success flow`() =
+    fun `fetch players and positions success flow`() =
         runTest {
             // when
-            Mockito.`when`(mockQuidditchPlayersApi.getPlayersByHouse(houseName = HouseName.RAVENCLAW.name))
+            Mockito
+                .`when`(mockQuidditchPlayersApi.getPlayersByHouse(houseName = HouseName.RAVENCLAW.name))
                 .thenReturn(
                     MockData.mockRavenclawPlayersDeferredResponseSuccess,
                 )
@@ -87,9 +89,10 @@ class QuidditchPlayersApiDataSourceTest : BaseTest() {
     fun `fetch status by house name success flow`() =
         runTest {
             // when
-            Mockito.`when`(
-                mockQuidditchPlayersApi.getStatusByHouseName(houseName = HouseName.RAVENCLAW.name),
-            ).thenReturn(MockData.mockStatusDeferredResponseSuccess)
+            Mockito
+                .`when`(
+                    mockQuidditchPlayersApi.getStatusByHouseName(houseName = HouseName.RAVENCLAW.name),
+                ).thenReturn(MockData.mockStatusDeferredResponseSuccess)
 
             // then
             setupQuidditchPlayersApiDataSource()
@@ -106,12 +109,18 @@ class QuidditchPlayersApiDataSourceTest : BaseTest() {
     fun `fetch status by player id success flow`() =
         runTest {
             // given
-            val playerId = MockData.ravenclawTeam().first().id.toString()
+            val playerId =
+                MockData
+                    .ravenclawTeam()
+                    .first()
+                    .id
+                    .toString()
 
             // when
-            Mockito.`when`(
-                mockQuidditchPlayersApi.fetchStatusByPlayerId(playerId = playerId),
-            ).thenReturn(MockData.mockStatusDeferredResponseSuccess)
+            Mockito
+                .`when`(
+                    mockQuidditchPlayersApi.fetchStatusByPlayerId(playerId = playerId),
+                ).thenReturn(MockData.mockStatusDeferredResponseSuccess)
 
             // then
             setupQuidditchPlayersApiDataSource()

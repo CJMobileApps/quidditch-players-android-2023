@@ -17,8 +17,7 @@ class QuidditchPlayersRepositoryImpl(
 
     override suspend fun getPlayersByHouse(houseName: String) = quidditchPlayersApiDataSource.getPlayersByHouse(houseName)
 
-    override suspend fun createPlayersByHouseToDB(players: List<PlayerEntity>) =
-        quidditchPlayersLocalDataSource.createPlayersByHouseToDB(players)
+    override suspend fun createPlayersByHouseToDB(players: List<PlayerEntity>) = quidditchPlayersLocalDataSource.createPlayersByHouseToDB(players)
 
     override suspend fun getAllPlayersFlow() = quidditchPlayersLocalDataSource.getAllPlayersFlow()
 

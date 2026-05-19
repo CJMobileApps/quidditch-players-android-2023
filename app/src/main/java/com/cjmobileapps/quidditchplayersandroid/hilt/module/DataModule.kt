@@ -26,56 +26,48 @@ class DataModule {
     fun quidditchPlayersApiDataSource(
         quidditchPlayersApi: QuidditchPlayersApi,
         coroutineDispatchers: CoroutineDispatchers,
-    ): QuidditchPlayersApiDataSource {
-        return QuidditchPlayersApiDataSource(
+    ): QuidditchPlayersApiDataSource =
+        QuidditchPlayersApiDataSource(
             quidditchPlayersApi = quidditchPlayersApi,
             coroutineDispatchers = coroutineDispatchers,
         )
-    }
 
     @Singleton
     @Provides
     fun quidditchPlayersRepository(
         quidditchPlayersApiDataSource: QuidditchPlayersApiDataSource,
         quidditchPlayersLocalDataSource: QuidditchPlayersLocalDataSource,
-    ): QuidditchPlayersRepository {
-        return QuidditchPlayersRepositoryImpl(
+    ): QuidditchPlayersRepository =
+        QuidditchPlayersRepositoryImpl(
             quidditchPlayersApiDataSource = quidditchPlayersApiDataSource,
             quidditchPlayersLocalDataSource = quidditchPlayersLocalDataSource,
         )
-    }
 
     @Singleton
     @Provides
-    fun quidditchPlayersUseCase(quidditchPlayersRepository: QuidditchPlayersRepository): QuidditchPlayersUseCase {
-        return QuidditchPlayersUseCase(
+    fun quidditchPlayersUseCase(quidditchPlayersRepository: QuidditchPlayersRepository): QuidditchPlayersUseCase =
+        QuidditchPlayersUseCase(
             quidditchPlayersRepository = quidditchPlayersRepository,
         )
-    }
 
     @Singleton
     @Provides
     fun quidditchPlayersDatabase(
         @ApplicationContext context: Context,
-    ): QuidditchPlayersDatabase {
-        return DatabaseFactory.getDB(context)
-    }
+    ): QuidditchPlayersDatabase = DatabaseFactory.getDB(context)
 
     @Singleton
     @Provides
-    fun quidditchPlayersDao(quidditchPlayersDatabase: QuidditchPlayersDatabase): QuidditchPlayersDao {
-        return quidditchPlayersDatabase.quidditchPlayersDao()
-    }
+    fun quidditchPlayersDao(quidditchPlayersDatabase: QuidditchPlayersDatabase): QuidditchPlayersDao = quidditchPlayersDatabase.quidditchPlayersDao()
 
     @Singleton
     @Provides
     fun quidditchPlayersLocalDataSource(
         quidditchPlayersDao: QuidditchPlayersDao,
         coroutineDispatchers: CoroutineDispatchers,
-    ): QuidditchPlayersLocalDataSource {
-        return QuidditchPlayersLocalDataSource(
+    ): QuidditchPlayersLocalDataSource =
+        QuidditchPlayersLocalDataSource(
             quidditchPlayersDao = quidditchPlayersDao,
             coroutineDispatchers = coroutineDispatchers,
         )
-    }
 }

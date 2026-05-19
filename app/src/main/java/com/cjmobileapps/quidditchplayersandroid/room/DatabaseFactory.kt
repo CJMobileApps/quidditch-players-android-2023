@@ -16,12 +16,12 @@ abstract class QuidditchPlayersDatabase : RoomDatabase() {
 
 class DatabaseFactory {
     companion object {
-        fun getDB(context: Context): QuidditchPlayersDatabase {
-            return Room.databaseBuilder(
-                context,
-                QuidditchPlayersDatabase::class.java,
-                "quidditch-players-database",
-            ).build()
-        }
+        fun getDB(context: Context): QuidditchPlayersDatabase =
+            Room
+                .databaseBuilder(
+                    context,
+                    QuidditchPlayersDatabase::class.java,
+                    "quidditch-players-database",
+                ).build()
     }
 }

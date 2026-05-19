@@ -16,19 +16,13 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromHouseList(value: List<House>): String {
-        return Gson().toJson(value)
-    }
+    fun fromHouseList(value: List<House>): String = Gson().toJson(value)
 
     @TypeConverter
-    fun toHouseName(value: Int): HouseName {
-        return HouseName.entries[value]
-    }
+    fun toHouseName(value: Int): HouseName = HouseName.entries[value]
 
     @TypeConverter
-    fun fromHouseName(value: HouseName): Int {
-        return value.ordinal
-    }
+    fun fromHouseName(value: HouseName): Int = value.ordinal
 
     @TypeConverter
     fun toIntList(value: String?): List<Int> {
@@ -38,17 +32,11 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromIntList(value: List<Int>): String {
-        return Gson().toJson(value)
-    }
+    fun fromIntList(value: List<Int>): String = Gson().toJson(value)
 
     @TypeConverter
-    fun toUUID(value: String): UUID {
-        return UUID.fromString(value)
-    }
+    fun toUUID(value: String): UUID = UUID.fromString(value)
 
     @TypeConverter
-    fun fromUUID(uuid: UUID): String {
-        return uuid.toString()
-    }
+    fun fromUUID(uuid: UUID): String = uuid.toString()
 }

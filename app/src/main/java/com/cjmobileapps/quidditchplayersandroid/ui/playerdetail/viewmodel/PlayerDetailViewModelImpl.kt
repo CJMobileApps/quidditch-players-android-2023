@@ -27,14 +27,16 @@ class PlayerDetailViewModelImpl
         savedStateHandle: SavedStateHandle,
         private val timeUtil: TimeUtil,
         private val quidditchPlayersUseCase: QuidditchPlayersUseCase,
-    ) : ViewModel(), PlayerDetailViewModel {
+    ) : ViewModel(),
+        PlayerDetailViewModel {
         private val playerId: String = checkNotNull(savedStateHandle["playerId"])
 
         private val compositeJob = Job()
 
         private val exceptionHandler =
             CoroutineExceptionHandler { _, throwable ->
-                Timber.tag(tag)
+                Timber
+                    .tag(tag)
                     .e("coroutineExceptionHandler() error occurred: $throwable \n ${throwable.message}")
                 snackbarState.value = PlayerDetailSnackbarState.ShowGenericError()
             }
@@ -83,12 +85,13 @@ class PlayerDetailViewModelImpl
 
                 while (timeUtil.isDelayLoopRunning()) {
                     timeUtil.delayWithRandomTime()
-                    quidditchPlayersUseCase.fetchStatusByPlayerId(playerId)
+                    quidditchPlayersUseCase
+                        .fetchStatusByPlayerId(playerId)
                         .onSuccess { status ->
                             player.status.value = status.status
-                        }
-                        .onError { _, error ->
-                            Timber.tag(tag)
+                        }.onError { _, error ->
+                            Timber
+                                .tag(tag)
                                 .e("quidditchPlayersUseCase.fetchStatusByPlayerId(playerId) error occurred: $error \\n ${error.message}")
                         }
                 }

@@ -24,12 +24,14 @@ class HousesViewModelImpl
     constructor(
         private val quidditchPlayersUseCase: QuidditchPlayersUseCase,
         coroutineDispatchers: CoroutineDispatchers,
-    ) : ViewModel(), HousesViewModel {
+    ) : ViewModel(),
+        HousesViewModel {
         private val compositeJob = Job()
 
         private val exceptionHandler =
             CoroutineExceptionHandler { _, throwable ->
-                Timber.tag(tag)
+                Timber
+                    .tag(tag)
                     .e("coroutineExceptionHandler() error occurred: $throwable \n ${throwable.message}")
                 snackbarState.value = HousesSnackbarState.ShowGenericError()
             }
@@ -65,8 +67,7 @@ class HousesViewModelImpl
                     housesResponse
                         .onSuccess { houses ->
                             housesState.value = HousesState.HousesLoadedState(houses = houses)
-                        }
-                        .onError { _, _ ->
+                        }.onError { _, _ ->
                             housesState.value = HousesState.HousesLoadedState()
                             snackbarState.value = HousesSnackbarState.UnableToGetHousesListError()
                         }
@@ -120,7 +121,9 @@ class HousesViewModelImpl
         sealed class HousesNavRouteUi {
             data object Idle : HousesNavRouteUi()
 
-            data class GoToPlayerListUi(val houseName: String) : HousesNavRouteUi() {
+            data class GoToPlayerListUi(
+                val houseName: String,
+            ) : HousesNavRouteUi() {
                 fun getNavRouteWithArguments(): String = NavItem.PlayersList.getNavRouteWithArguments(houseName)
             }
         }

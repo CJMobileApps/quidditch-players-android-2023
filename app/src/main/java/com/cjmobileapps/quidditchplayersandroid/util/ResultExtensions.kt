@@ -26,9 +26,7 @@ inline fun <T : Any> Response<T>.onError(action: (String?, Int) -> Unit): Respon
     return this
 }
 
-fun <T : Any> ResponseWrapper<T>.isSuccessful(): Boolean {
-    return statusCode in 200..299
-}
+fun <T : Any> ResponseWrapper<T>.isSuccessful(): Boolean = statusCode in 200..299
 
 inline fun <T : Any> ResponseWrapper<T>.onSuccess(action: (T) -> Unit): ResponseWrapper<T> {
     if (data != null && isSuccessful()) {
@@ -97,7 +95,8 @@ suspend fun <T : Any> withContextApiWrapper(
 ): ResponseWrapper<T> {
     return try {
         withContext(coroutineContext) {
-            requestFunc.invoke()
+            requestFunc
+                .invoke()
                 .await()
                 .responseWrapper()
         }
@@ -147,17 +146,16 @@ suspend fun <T1 : Any, T2 : Any> withContextApiWrappers(
     coroutineContext: CoroutineContext,
     requestFunc1: suspend () -> Deferred<Response<ResponseWrapper<T1>>>,
     requestFunc2: suspend () -> Deferred<Response<ResponseWrapper<T2>>>,
-): ResponseWrappers<T1, T2> {
-    return withContext(coroutineContext) {
+): ResponseWrappers<T1, T2> =
+    withContext(coroutineContext) {
         ResponseWrappers(
             responseWrapper1 = apiWrapper(requestFunc1),
             responseWrapper2 = apiWrapper(requestFunc2),
         )
     }
-}
 
-fun <T : Any> defaultErrorResultWrapper(): ResponseWrapper<T> {
-    return ResponseWrapper(
+fun <T : Any> defaultErrorResultWrapper(): ResponseWrapper<T> =
+    ResponseWrapper(
         data = null,
         error =
             Error(
@@ -166,4 +164,3 @@ fun <T : Any> defaultErrorResultWrapper(): ResponseWrapper<T> {
             ),
         statusCode = 500,
     )
-}

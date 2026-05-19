@@ -37,7 +37,8 @@ class HousesUiTest {
                 // given
                 // Ravenclaw player
                 val player =
-                    MockData.ravenclawTeam()
+                    MockData
+                        .ravenclawTeam()
                         .first()
                         .toPlayerEntity(MockData.mockPositions)
                         .toPlayerState()
