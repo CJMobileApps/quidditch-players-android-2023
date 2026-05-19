@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.compose.compiler)
-    id("jacoco")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.jacoco)
+    alias(libs.plugins.hiltAndroid)
 }
 
 jacoco {

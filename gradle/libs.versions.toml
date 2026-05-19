@@ -94,3 +94,4 @@ junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jacoco = { id = "jacoco" }
