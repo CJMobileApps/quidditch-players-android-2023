@@ -20,7 +20,7 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         html.required = true
     }
 
-    val fileFilter = listOf("**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*")
+    val fileFilter = listOf("**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*", "**/*Test*.*", "android/**/*.*", "**/hilt/**")
     val debugTree =
         fileTree(layout.buildDirectory.dir("intermediates/built_in_kotlinc/devDebug/compileDevDebugKotlin/classes")) {
             exclude(fileFilter)
