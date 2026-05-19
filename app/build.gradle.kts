@@ -13,7 +13,7 @@ jacoco {
 }
 
 tasks.register<JacocoReport>("jacocoTestReport") {
-    dependsOn("testDevDebugUnitTest", "testDevReleaseUnitTest", "createDevDebugCoverageReport")
+    dependsOn("testDevDebugUnitTest", "createDevDebugCoverageReport")
 
     reports {
         xml.required = true
@@ -34,7 +34,6 @@ tasks.register<JacocoReport>("jacocoTestReport") {
     executionData.setFrom(
         fileTree(layout.buildDirectory) {
             include(
-                "jacoco/testDevReleaseUnitTest.exec",
                 "outputs/code_coverage/*coverage.ec",
                 "outputs/unit_test_code_coverage/*testDevDebugUnitTest.exec",
             )
